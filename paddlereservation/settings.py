@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$nu1vq#pewq&sw%gg7ftm&bsxj0w=(!o*dl4h)9@g#=z@s5^hb'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -62,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Restrict only login staff users to access admin site
     'paddlereservation.urls.RestrictStaffToAdminMiddleware',
 ]
 
@@ -107,6 +113,17 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+# Emailing registration confirmation
+# https://pylessons.com/django-email-confirm
+EMAIL_BACKEND = env('EMAIL_BACKEND')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_FROM = env('EMAIL_FROM')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+PASSWORD_RESET_TIMEOUT = int(env('PASSWORD_RESET_TIMEOUT'))
+
 # Google authentication
 
 #If you get an error: SocialApp matching query does not exist at http://127.0.0.1:8000/google/login/, it means that the ID of the site you created in Django admin is not the same as the one in settings.py. Consider playing around with the SITE_ID value.
@@ -124,8 +141,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 # Additional configuration settings
-# LOGIN_REDIRECT_URL = '/'
-# LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # SOCIALACCOUNT_QUERY_EMAIL = True
 # ACCOUNT_LOGOUT_ON_GET= True

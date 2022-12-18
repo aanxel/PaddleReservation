@@ -17,7 +17,7 @@
             </div>
             {% if user.is_authenticated %}
                 <div style="display: flex; justify-content: flex-end;">
-                    {% if user.is_staff%}
+                    {% if user.is_staff %}
                         <a href="/admin">Admin</a>
                     {% endif %}
                     <a href="{% url 'logout' %}">Cerrar Sesión</a>
