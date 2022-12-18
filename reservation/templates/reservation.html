@@ -1,0 +1,41 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+{% comment %}
+<!-- <form id="create-reservation" action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Reservar">
+</form> -->
+{% endcomment %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <p>{{ field.label_tag }} {{ field }}</p>
+    {% endfor %}
+    <input type="submit" value="Reservar">
+</form>
+
+<div style="display: flex; justify-content: center; flex-wrap: wrap;">
+    {% for start_interval, end_interval, active in intervals %}
+        <div style="text-align: center; margin: 5px;">
+            <p style="margin: 0;">{{ start_interval }}</p>
+            <p style="margin: 0;">{{ end_interval }}</p>
+            {% if active %}
+                <button disabled id={{ start_interval }} style="padding: 25px 25px; background-color: red; border-color: darkred; border-radius: 5px;"></button>
+            {% else %}
+                <button disabled id={{ start_interval }} style="padding: 25px 25px; border-radius: 5px;"></button>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<p>LEYENDA</p>
+<button disabled style="padding: 25px 25px; background-color: red; border-color: darkred; border-radius: 5px;">Ocupado</button>
+<!-- <button disabled style="padding: 25px 25px; background-color: #4CAF50; border-color: darkgreen; border-radius: 5px;">Seleccionado</button> -->
+<button disabled style="padding: 25px 25px; border-radius: 5px;">Libre</button>
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<h1>Reservas Activas</h1>
+{% for active_reservation in active_reservations %}
+    <p>{{ active_reservation }}</p>
+{% endfor %}
+
+<h1>Reservas Antiguas</h1>
+{% for past_reservation in past_reservations %}
+    <p>{{ past_reservation }}</p>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <nav style="display: flex; justify-content: space-between;">
+            <div style="display: flex; justify-content: flex-start;">
+                <a href="{% url 'information' %}">Información</a>
+                <a href="{% url 'reservation' %}">Reservas</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'user_reservations' %}">Mis Reservas</a>
+                {% endif %}
+            </div>
+            {% if user.is_authenticated %}
+                <div style="display: flex; justify-content: flex-end;">
+                    {% if user.is_staff%}
+                        <a href="/admin">Admin</a>
+                    {% endif %}
+                    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+                </div>
+            {% else %}
+                <div style="display: flex; justify-content: flex-end;">
+                    <a href="{% url 'register' %}">Registrarte</a>
+                    <a href="{% url 'login' %}">Iniciar Sesión</a>
+                </div>
+            {% endif %}
+        </nav>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

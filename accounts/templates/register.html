@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<h1>Register</h1>
+
+{% if form.errors %}
+  <p>Lo sentimos, hubo algún error durante el registro</p>
+{% endif %}
+
+<form action="{% url 'register' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" id="submit">Register</button>
+</form>
+
+{% endblock %}

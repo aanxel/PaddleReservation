@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+{% if information_location %}
+    <h1>UBICACIÓN</h1>
+    <ul>
+        {% for info in information_location %}
+            <li>{{info}}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if information_use_policy %}
+    <h1>NORMAS DE USO</h1>
+    <ul>
+        {% for info in information_use_policy %}
+            <li>{{info}}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if information_price %}
+    <h1>Precios</h1>
+    <ul>
+        {% for info in information_price %}
+            <li>{{info}}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock %}
