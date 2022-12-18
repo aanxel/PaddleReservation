@@ -75,7 +75,7 @@ def register_user(request):
             user.is_active = False
             user.save()
             activate_email(request, user, form.cleaned_data.get('email'))
-            messages.success(request, 'Antes de iniciar sesión por primera vez, diríjase a su correo y confirme el registro')
+            # messages.success(request, 'Antes de iniciar sesión por primera vez, diríjase a su correo y confirme el registro')
             return redirect('login')
     else:
         form = RegisterForm()
