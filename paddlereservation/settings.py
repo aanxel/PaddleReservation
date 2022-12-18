@@ -42,7 +42,14 @@ DJANGO_APPS = [
 
 OWN_APPS = [
     'reservation',
+    # User override for email login
     'accounts.apps.AccountsConfig',
+    # Google authentication
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + OWN_APPS
@@ -95,7 +102,35 @@ DATABASES = {
 # https://rahmanfadhil.com/django-login-with-email/
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
-AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Google authentication
+
+#If you get an error: SocialApp matching query does not exist at http://127.0.0.1:8000/google/login/, it means that the ID of the site you created in Django admin is not the same as the one in settings.py. Consider playing around with the SITE_ID value.
+SITE_ID = 2
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+# Additional configuration settings
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
+
+# SOCIALACCOUNT_QUERY_EMAIL = True
+# ACCOUNT_LOGOUT_ON_GET= True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_EMAIL_REQUIRED = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

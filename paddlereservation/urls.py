@@ -48,6 +48,8 @@ class RestrictStaffToAdminMiddleware:
 urlpatterns = [
     path('', include('reservation.urls')),
     path('', include('accounts.urls')),
+    path('', include('allauth.urls')),
+    # path('social/signup', name='allauth_redirect'), # Problem if user already registered in app
     path('admin/logout/', lambda request: redirect('/logout/', permanent=False)),
     path('admin/', admin.site.urls, name='admin_site'),
 ]

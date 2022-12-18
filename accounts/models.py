@@ -12,4 +12,4 @@ class TypeUser(models.Model):
 
 class CustomUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
-    user_type = models.ForeignKey(TypeUser, on_delete=models.SET_NULL, null=True)
+    user_type = models.ForeignKey(TypeUser, default=lambda: TypeUser.objects.filter(name='normal').first(),on_delete=models.SET_NULL, null=True)

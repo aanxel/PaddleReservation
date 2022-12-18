@@ -10,4 +10,9 @@
   <button type="submit" id="submit">Login</button>
 </form>
 
+{% load socialaccount %}
+<button>
+  <a href="{% provider_login_url 'google' %}?next=/">Login with Google</a>
+</button>
+
 {% endblock %}
